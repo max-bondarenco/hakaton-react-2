@@ -2,7 +2,6 @@
 
 {% block content %}
   {% load static %}
-  <img href="{% static "img/logo.jpg" %}">
   <h1>Content of site</h1>
   <h4>Content</h4>
       <p1>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Exercitationem beatae maxime et excepturi saepe ratione vel. Neque consectetur cupiditate accusantium a ipsam sunt voluptas qui ad totam alias! Accusantium voluptatem facere error sint reprehenderit magnam, deserunt veritatis eum itaque a cupiditate molestias assumenda accusamus id voluptates, debitis iusto illum laudantium nulla ex laboriosam similique temporibus? Fugit, exercitationem error? Repellat labore repellendus exercitationem expedita. Soluta earum quidem corrupti non aspernatur officia ipsum laudantium voluptatem id a, sapiente optio temporibus fugit. Fuga omnis et unde minus, perspiciatis voluptatibus. Nemo officia quibusdam beatae tempora veritatis, repellat ullam harum nam, doloremque, aliquam exercitationem. Aspernatur beatae doloremque, sit quae sint excepturi reprehenderit molestias tenetur sapiente quos exercitationem aliquid nihil ab! Commodi tempore magnam consequatur voluptas, hic nam voluptatum perspiciatis molestiae nisi possimus a eaque laboriosam voluptates accusantium omnis sapiente eius dolorum maiores quam voluptatibus delectus veniam ipsum sit dolores? Fugit atque reprehenderit vitae odio quibusdam voluptatem fuga voluptates est. Fugiat aliquid inventore impedit ex asperiores ad quod voluptatibus tempora quis, repellendus sed quas porro doloremque nam repudiandae eos necessitatibus soluta debitis totam obcaecati eligendi distinctio. Facilis atque recusandae ullam sint aspernatur eum eaque, enim id voluptates cupiditate nam accusamus architecto aperiam commodi ipsum illo quam hic doloremque praesentium consectetur neque natus aut maiores. Amet, quasi repellendus iure vel at illo quis dicta quisquam a reiciendis saepe sed rerum. Omnis vitae a tempore illum sit iste sunt minus qui commodi quos adipisci corporis nostrum error vero deserunt quia cum, aut hic. Odio necessitatibus possimus nam praesentium rem rerum dolore temporibus ab cumque officiis odit, eveniet dolorem voluptate quod quam repellat amet provident reiciendis totam blanditiis autem quibusdam excepturi? Ullam ex nesciunt animi nihil corrupti eligendi nam distinctio velit tenetur rerum enim, commodi vero deserunt voluptate aspernatur voluptatem tempore delectus impedit ipsam assumenda consequuntur ut voluptatibus alias!</p1>
@@ -10,10 +9,14 @@
    <p>Content text - Content text - Content text - Content text -
   Content text - Content text - Content text - Content text -
   Content text - Content text - Content text - Content text -</p>
-  {% for i in "1234567890" %}
-  <h4>Content {{ i }}</h4>
+  {% if auction_list %}
+  {% for auction in auction_list %}
+  <h4>Content {{ auction }}</h4>
+    {% endfor %}
+    {% else %}
+        <p>There are no auction</p>
+    {% endif %}
    <p>Content text - Content text - Content text - Content text -
   Content text - Content text - Content text - Content text -
   Content text - Content text - Content text - Content text -</p>
-{% endfor %}
 {% endblock %}
