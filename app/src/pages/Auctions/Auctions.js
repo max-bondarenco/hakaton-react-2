@@ -2,7 +2,7 @@ import { Auction } from './Auction'
 
 export const Auctions = (props) => {
     return (
-        <div>
+        <div className="container">
             <div>
                 <h1>Auctions</h1>
             </div>

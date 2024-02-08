@@ -1,3 +1,7 @@
 export const Auction = (props) => {
-    return <div></div>
+    return (
+        <div className="container">
+            <div>{props.data.name}</div>
+        </div>
+    )
 }

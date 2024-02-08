@@ -8,7 +8,6 @@ import axios from 'axios'
 const getAuctions = async () => {
     let auctions
 
-    console.log('blyad')
     axios
         .get('http://localhost:3000/api/auctions')
         .then((response) => (auctions = response.data))
