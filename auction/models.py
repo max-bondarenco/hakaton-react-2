@@ -6,7 +6,7 @@ from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
     # country = models.TextChoices()
-    balance = models.DecimalField(max_digits=10, decimal_places=2)
+    balance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
 
 class Lot(models.Model):
@@ -32,3 +32,6 @@ class Auction(models.Model):
     price_of_ransom = models.DecimalField(max_digits=10, decimal_places=2, null=True)
     time_of_creation = models.DateTimeField(auto_now_add=True)
     time_of_start = models.DateTimeField()
+
+    def __str__(self):
+        return f"Auction: {self.time_of_start} - {self.creator}"
