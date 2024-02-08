@@ -17,3 +17,12 @@ def auction_list(request: HttpRequest):
         "auction_list": auction_list
     }
     return render(request, "auction-list.html", context=context)
+
+def profile(request: HttpRequest):
+    return render(request, "profile.html")
+
+def sign_up(request: HttpRequest):
+    return render(request, "sign-up.html")
+
+def sign_in(request: HttpRequest):
+    return render(request, "sign-in.html")

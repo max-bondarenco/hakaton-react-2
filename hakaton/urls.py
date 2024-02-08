@@ -16,10 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from auction.views import index, auction_list
+from auction.views import index, auction_list, profile, sign_up, sign_in
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index),
     path('auction/', auction_list),
+    path('profile/', profile),
+    path('sign-up/', sign_up),
+    path('sign-in/', sign_in)
 ]
