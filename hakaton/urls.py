@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from auction.views import index, auction_list, profile, sign_up, sign_in
+from auction.views import index, auction_list, profile, sign_up, sign_in, validation_reg
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,5 +24,6 @@ urlpatterns = [
     path('auction/', auction_list),
     path('profile/', profile),
     path('sign-up/', sign_up),
-    path('sign-in/', sign_in)
+    path('sign-in/', sign_in),
+    path('sign-up/verify/', validation_reg)
 ]
