@@ -18,7 +18,18 @@ def auction_list(request: HttpRequest):
     context = {
         "auction_list": auction_list
     }
-    return render(request, "auction-list.html", context=context)
+    return render(request, "auction/auction-list.html", context=context)
+
+
+def auction_list_detail(request, pk: int):
+    print("Start")
+    auction = Auction.objects.get(pk=pk)
+    context = {
+        "auction": auction
+    }
+    print("end")
+    print(context)
+    return render(request, "auction/auction.html", context=context)
 
 
 @csrf_protect
@@ -57,14 +68,3 @@ def autorisation_my(request: HttpRequest):
         # Если пользователь не аутентифицирован, выполните другие действия
         # Ваша логика для неаутентифицированного пользователя
         return sign_up(request)
-
-
-def auction_list_detail(request, pk: int):
-    print("Start")
-    auction = Auction.objects.get(pk=pk)
-    context = {
-        "auction": auction
-    }
-    print("end")
-    print(context)
-    return render(request, "auction.html", context=context)

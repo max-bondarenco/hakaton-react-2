@@ -26,6 +26,8 @@ class Transation(models.Model):
 
 
 class Auction(models.Model):
+    name = models.CharField(max_length=255, default="Auction")
+    description = models.TextField(blank=True, null=True)
     creator = models.ForeignKey(to=User, on_delete=models.DO_NOTHING, related_name="auctions")
     buyer = models.ForeignKey(to=User, on_delete=models.DO_NOTHING, null=True, blank=True,
                               related_name="auctions_bought")
