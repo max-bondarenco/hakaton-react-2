@@ -15,15 +15,18 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from auction.views import index, auction_list, profile, sign_up, sign_in, validation_reg
+from django.urls import path, include
+
+from auction.views import index, auction_list, sign_up, account, sign_in, validation_reg
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index),
-    path('auction/', auction_list),
-    path('profile/', profile),
-    path('sign-up/', sign_up),
-    path('sign-in/', sign_in),
-    path('sign-up/verify/', validation_reg)
+    path('auction/', include("auction.urls", namespace="auction"), name="auction"),
+    path('account/', account, name="sign_up"),
+    path('sign-up/', sign_up, name="sign_up"),
+    path('sign-in/', sign_in, name="sign_in"),
+    path('sign-up/verify/', validation_reg, name="sign_up_verify")
 ]
+
+app_name = "auction_service"

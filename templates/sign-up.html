@@ -5,7 +5,7 @@
         <div class="card-body p-5">
             <h2 class="text-uppercase text-center mb-5">Create an account</h2>
 
-            <form method="post" action={% url 'sign-up:verify/' %}>
+            <form method="post" action="verify/">
                 {% csrf_token %}
                 <div class="form-outline mb-4">
                     <input
@@ -95,4 +95,8 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block title %}
+      <title>Sign-up</title>
 {% endblock %}
