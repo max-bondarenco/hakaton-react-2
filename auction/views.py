@@ -60,9 +60,11 @@ def autorisation_my(request: HttpRequest):
 
 
 def auction_list_detail(request, pk: int):
-    auction = Auction.objects.get(pk)
+    print("Start")
+    auction = Auction.objects.get(pk=pk)
     context = {
         "auction": auction
     }
+    print("end")
     print(context)
     return render(request, "auction.html", context=context)
