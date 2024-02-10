@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    <title>Create auction</title>
+{% endblock %}
+
+{% block content %}
+  <h1 style="text-align: center">Створи аукціон</h1>
+  <div style="padding: 20px; margin: 30px; border-radius: 8px;background-color: lavender">
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Відправити</button>
+</form>
+  </div>
+
+{% endblock %}

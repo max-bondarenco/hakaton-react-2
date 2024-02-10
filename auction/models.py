@@ -1,3 +1,5 @@
+import datetime
+
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
@@ -16,6 +18,7 @@ class Country(models.TextChoices):
 class User(AbstractUser):
     country = models.CharField(max_length=4, choices=Country.choices, default="UA")
     balance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    avatar = models.ImageField(upload_to="media/avatars")
 
 
 class Transation(models.Model):
@@ -27,18 +30,29 @@ class Transation(models.Model):
 
 class Auction(models.Model):
     name = models.CharField(max_length=255, default="Auction")
-    description = models.TextField(blank=True, null=True)
+    description = models.TextField(blank=True, null=True, max_length=700)
+    image = models.ImageField(upload_to="media/auction-images", blank=True, null=True)
     creator = models.ForeignKey(to=User, on_delete=models.DO_NOTHING, related_name="auctions")
-    buyer = models.ForeignKey(to=User, on_delete=models.DO_NOTHING, null=True, blank=True,
-                              related_name="auctions_bought")
+
+    current_better = models.ForeignKey(to=User, on_delete=models.DO_NOTHING, null=True, blank=True,
+                                       related_name="auctions_betters")
     start_price = models.DecimalField(max_digits=10, decimal_places=2)
     minimal_bet = models.DecimalField(max_digits=10, decimal_places=2)
+    current_bet = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     price_of_ransom = models.DecimalField(max_digits=10, decimal_places=2, null=True)
     time_of_creation = models.DateTimeField(auto_now_add=True)
     time_of_start = models.DateTimeField()
+    seconds_to_end = models.IntegerField(default=60)
+    is_completed = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ["-time_of_start"]
 
     def __str__(self):
-        return f"Auction: {self.time_of_start} - {self.creator}"
+        return f"{self.name} {self.time_of_start}"
+
+    def str_date(self):
+        return datetime.datetime.strftime(self.time_of_start, "%m/%d/%Y, %H:%M:%S")
 
 
 class Lot(models.Model):

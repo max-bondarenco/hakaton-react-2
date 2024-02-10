@@ -25,10 +25,10 @@
       bottom: 0;
       right: 0;
   }</style>
-  <h1 style="text-align: center">Наявні аукціони</h1>
-  {% if auction_list %}
+  <h1 style="text-align: center">Мої лоти</h1>
+  {% if auctions %}
     <div class="container mt-5 auction-list-container">
-  {% for auction in auction_list %}
+  {% for auction in auctions %}
         <!-- Аукціон 1 -->
         <div class="row auction-container">
             <div class="col-md-3">
@@ -47,10 +47,6 @@
     {% endfor %}
         </div>
     {% else %}
-        <p>There are no auction</p>
+        <p>В тебе немає лотів</p>
     {% endif %}
-
-   <p>Content text - Content text - Content text - Content text -
-  Content text - Content text - Content text - Content text -
-  Content text - Content text - Content text - Content text -</p>
 {% endblock %}

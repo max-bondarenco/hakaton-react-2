@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+  <style>
+      body {
+          padding-top: 20px;
+          background-color: #ffffff; /* Світло-сірий фон */
+          color: #555; /* Темний сірий колір для тексту */
+      }
+
+      .container {
+          margin-top: 20px;
+          border-radius: 10px; /* Закруглені кути рамки */
+          padding: 20px; /* Відступ всередині контейнера */
+          box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Тінь */
+          border: 1px solid #ccc; /* Рамка навколо контейнера */
+      }
+
+      img {
+          max-width: 100%;
+          height: auto;
+      }
+
+      h1 {
+          color: #343a40; /* Темно-сірий колір для заголовків */
+          font-weight: bold;
+      }
+
+      p {
+          color: #777; /* Світло-сірий колір для тексту */
+      }
+  </style>
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-2">
+            <img src="{% static auction.image %}" alt="Зображення аукціону" class="img-fluid">
+        </div>
+        <div class="col-md-10">
+            <h1><strong>{{ auction.name }}</strong> </h1>
+        </div>
+    </div>
+    <hr> <!-- Роздільна лінія -->
+    <div class="row">
+        <div class="col-md-12">
+            <p><strong>Опис:</strong> {{ auction.description }}</p>
+            <p><strong>Дата створення:</strong> {{ auction.time_of_creation }}</p>
+            <p><strong>Дата початку:</strong> {{ auction.time_of_start }}</p>
+            <p><strong>Початкова ставка:</strong> ${{ auction.start_price }}</p>
+            <p><strong>Мінімальний крок:</strong> ${{ auction.minimal_bet }}</p>
+            <p><strong>Ціна викупу:</strong> ${{ auction.price_of_ransom }}</p>
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div>
+            <h1>Участники:</h1>
+            <p>Ярчик</p>
+            <p>Іванко</p>
+            <div class="d-flex justify-content-center align-items-center">
+              <a href="going/" class="btn btn-primary">Взяти участь</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

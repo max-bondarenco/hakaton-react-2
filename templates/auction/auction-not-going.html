@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    <style>
+        body {
+            background-color: #ffffff; /* Світло-сірий фон */
+            color: #555; /* Темний сірий колір для тексту */
+        }
+
+        .container {
+            margin-top: 20px;
+            border-radius: 10px; /* Закруглені кути рамки */
+            padding: 20px; /* Відступ всередині контейнера */
+            box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Тінь */
+            border: 1px solid #ccc; /* Рамка навколо контейнера */
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        h1 {
+            color: #343a40; /* Темно-сірий колір для заголовків */
+        }
+
+        p {
+            color: #777; /* Світло-сірий колір для тексту */
+        }
+        #timer {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .timer-container {
+            width: 300px;
+            margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            height: 20px;
+            background-color: #eee;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 10px;
+            width: 100%; /* Растягиваем полосу на всю ширину контейнера */
+        }
+
+
+        .progress {
+            height: 100%;
+            width: 100%; /* Заполняем полосу на всю ширину контейнера */
+            background-color: green;
+            transition: width 1s linear, background-color 1s linear;
+        }
+    </style>
+  <input id="csrf" type="hidden" name="csrf-token" value="{% csrf_token %}" >
+  <form  action="accepted/" method="post">
+ {% csrf_token %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-2">
+            <img src="{% static auction.image %}" alt="Зображення аукціону" class="img-fluid">
+        </div>
+        <div class="col-md-10">
+                <p><strong>Початкова ставка:</strong> $100</p>
+                <p><strong>Мінімальний крок:</strong> $10</p>
+                <p><strong>Ціна викупу:</strong> $500</p>
+
+        </div>
+    </div>
+    <hr> <!-- Роздільна лінія -->
+    <div class="row">
+        <div class="col-md-12">
+            <p><strong>Поточний покупець:</strong> Ярчик</p>
+            <p><strong>Поточна ставка:</strong> 150</p>
+            <div class="timer-container">
+                <p><strong>Залишок часу:</strong> <span id="timer"></span></p>
+                <div class="progress-bar">
+                    <div class="progress"></div>
+                </div>
+            </div>
+
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 d-flex justify-content-start align-items-center">
+            <button class="btn btn-primary">Викупити</button>
+        </div>
+        <div class="col-md-6 d-flex justify-content-end align-items-center">
+            <!-- динамически менять мин -->
+            <input type="number" min="100" class="form-control" placeholder="Ваша ставка" style="width: 140px;">
+            <button class="btn btn-primary">Перебити ставку</button>
+        </div>
+    </div>
+
+</div>
+  <button type="submit" hidden="hidden" id="successed">ss</button>
+  </form>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    var progress = document.querySelector('.progress');
+    var timerElement = document.getElementById('timer');
+
+    var totalTime = 10; // Время в секундах
+    var remainingTime = totalTime;
+    var interval = 1000; // Интервал обновления (1 секунда)
+
+    var timer = setInterval(function() {
+        remainingTime -= 1;
+        var percent = (remainingTime / totalTime) * 100;
+        progress.style.width = percent + '%';
+
+        // Изменение цвета в зависимости от оставшегося времени
+        if (remainingTime > 30) {
+            progress.style.backgroundColor = 'green';
+        } else if (remainingTime > 10) {
+            progress.style.backgroundColor = 'yellow';
+        } else {
+            progress.style.backgroundColor = 'red';
+        }
+
+        timerElement.textContent = remainingTime + ' с';
+
+        if (remainingTime <= 0) {
+            clearInterval(timer);
+            timerElement.textContent = 'Час вийшов!';
+
+            // Отправляем запрос на бекэнд
+            const csrf_cookieValue = document.cookie
+    .split('; ')
+    .find(row => row.startsWith('csrftoken')).split('=')[1];
+            console.log(csrf_cookieValue)
+            fetch('accepted/', {
+                method: 'POST', // Метод запроса
+                headers: {
+                    'X-CSRFToken': csrf_cookieValue,
+                    'Content-Type': 'application/json', // Тип содержимого
+                    'Accepted-Type': 'True', // Тип содержимого
+                    // Другие заголовки, если нужно
+                },
+                body: JSON.stringify({ message: 'Time is up!' }) // Тело запроса в формате JSON
+            })
+            .then(response => {
+                console.log(response);
+                window.location.href = response.url
+            })
+            .catch(error => {
+                console.error('Error:', error); // Обработка ошибки, если запрос не удался
+            });
+        }
+
+    }, interval);
+    ;
+
+</script>
+
+{% endblock %}
