@@ -4,14 +4,59 @@
     <title>Create auction</title>
 {% endblock %}
 
+<style>
+  body {
+      padding-top: 20px;
+      background-color: #f8f9fa; /* Світло-сірий фон */
+      color: #555; /* Темний сірий колір для тексту */
+  }
+  .container {
+      margin-top: 20px;
+      border-radius: 10px; /* Закруглені кути рамки */
+      padding: 20px; /* Відступ всередині контейнера */
+      box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Тінь */
+      border: 1px solid #ccc; /* Рамка навколо контейнера */
+  }
+</style>
+
 {% block content %}
-  <h1 style="text-align: center">Створи аукціон</h1>
-  <div style="padding: 20px; margin: 30px; border-radius: 8px;background-color: lavender">
-  <form method="post">
+
+<div class="container">
+  <h1>Реєстрація аукціону</h1>
+  <form method="POST">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Відправити</button>
-</form>
-  </div>
+      <div class="mb-3">
+          <label for="auctionName" class="form-label">Назва аукціону</label>
+          <input type="text" class="form-control" id="auctionName" required>
+      </div>
+      <div class="mb-3">
+          <label for="description" class="form-label">Опис</label>
+          <textarea class="form-control" id="description" rows="3" required></textarea>
+      </div>
+      <div class="mb-3">
+          <label for="image" class="form-label">Картинка</label>
+          <input type="file" class="form-control" id="image" required>
+      </div>
+      <div class="row">
+          <div class="col-md-6 mb-3">
+              <label for="startPrice" class="form-label">Початкова ціна</label>
+              <input type="number" class="form-control" id="startPrice" required>
+          </div>
+          <div class="col-md-6 mb-3">
+              <label for="minBid" class="form-label">Мінімальна ставка</label>
+              <input type="number" class="form-control" id="minBid" required>
+          </div>
+      </div>
+      <div class="mb-3">
+          <label for="buyoutPrice" class="form-label">Ціна викупу</label>
+          <input type="number" class="form-control" id="buyoutPrice" required>
+      </div>
+      <div class="mb-3">
+          <label for="startTime" class="form-label">Час початку</label>
+          <input type="datetime-local" class="form-control" id="startTime" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Зареєструвати аукціон</button>
+  </form>
+</div>
 
 {% endblock %}

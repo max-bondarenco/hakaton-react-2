@@ -15,7 +15,7 @@ class AuctionListView(generic.ListView):
 class AuctionModelForm(forms.ModelForm):
     class Meta:
         model = Auction
-        fields = '__all__'
+        fields = ["name", "description", "image", "start_price", "minimal_bet", "price_of_ransom", "time_of_start"]
 
 class AuctionCreateView(generic.CreateView):
     form_class = AuctionListView
