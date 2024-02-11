@@ -20,18 +20,11 @@ def account(request: HttpRequest):
 
 def sign_up(request: HttpRequest):
     if request.method == "POST":
-        print("NIGAAAAGA")
-        print(request.POST)
         name = request.POST['username']
         email = request.POST['email']
         phone = request.POST['phone']
         password1 = request.POST['password1']
         password2 = request.POST['password2']
-        print("start")
-        print(password2)
-        print(name)
-        print(password1)
-        print("start")
 
         if password1 != password2:
             return HttpResponse("Паролі не збігаються")

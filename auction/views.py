@@ -151,8 +151,11 @@ def create_auction_success(request):
 
 
 def auction_list(request):
+    auctions = Auction.objects.filter(is_completed=0)
+    if request.method == "POST":
+        auctions = auctions.filter(name__contains=request.POST["query"])
     context = {
-        "auction_list": Auction.objects.filter(is_completed=0)
+        "auction_list": auctions
     }
     return render(request, "auction/auction-list.html", context=context)
 
