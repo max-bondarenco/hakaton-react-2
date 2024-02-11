@@ -21,9 +21,6 @@ def index(request: HttpRequest):
 
 def auction_list_detail(request, pk: int):
     auction = Auction.objects.get(pk=pk)
-    if request.user not in auction.participants.all():
-        auction.participants.add(request.user)
-        auction.save()
     context = {
         "auction": auction,
         "lots": auction.lot_set.all(),

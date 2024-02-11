@@ -31,7 +31,10 @@ def sign_up(request: HttpRequest):
         if check_password_valid(str(password2)):
             user = User(username=name, email=email, phone=phone)
             user.set_password(password1)
-            user.save()
+            try:
+                user.save()
+            except Exception :
+                return render(request, "registration/unsuccess-sign-up.html")
         else:
             return HttpResponse("""accepts only letters of the Latin alphabet Aa-Zz, digits 0-9 or special character 
             from $@#&!-_; at least 8 characters; maximum 16 characters inclusive; contains at least 1 digit, 
@@ -46,7 +49,6 @@ def sign_in(request: HttpRequest):
 
 def validation_login(request: HttpRequest):
     if request.method == 'POST':
-        print("valaditob login")
         name = request.POST.get('username', '')
         password = request.POST.get('password', '')
         user = authenticate(username=name, password=password)
@@ -58,16 +60,6 @@ def validation_login(request: HttpRequest):
             return HttpResponse("<H1>Неправильно введені дані!!!</H1>")
     elif request.method == 'GET':
         return render(request, "registration/login.html")
-
-
-
-def autorisation_my(request: HttpRequest):
-    if request.user.is_authenticated:
-        context = {
-            "user_I": request.user
-        }
-        return
-    return sign_in(request)
 
 
 def success(request):
