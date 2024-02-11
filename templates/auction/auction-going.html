@@ -89,20 +89,18 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6 d-flex justify-content-start align-items-center">
-            <a href="buy/"><button class="btn btn-primary">Викупити</button></a>
-        </div>
-        <div class="col-md-6 d-flex justify-content-end align-items-center">
             <!-- динамически менять мин -->
-            <input type="number" name="bet" min="100" class="form-control" placeholder="Ваша ставка" style="width: 140px;">
-            <button type="submit" class="btn btn-primary">Перебити ставку</button>
+            <input type="number" name="bet" min="{{ auction.minimal_bet }}" class="form-control" placeholder="Ваша ставка" style="width: 140px;">
+            <button type="submit" class="btn btn-primary mt-2">Перебити ставку</button>
         </div>
     </div>
 
 </div>
   <button type="submit" hidden="hidden" id="successed">ss</button>
   </form>
-
+<div class="col-md-6 d-flex justify-content-center align-items-center pt-2">
+            <a href="buy/"><button class="btn btn-primary">Викупити</button></a>
+        </div>
   <div class="container">
   <h3>Беруть участь:</h3>
   {% for participant in participants %}

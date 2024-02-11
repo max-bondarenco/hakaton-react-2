@@ -21,8 +21,13 @@ def index(request: HttpRequest):
 
 def auction_list_detail(request, pk: int):
     auction = Auction.objects.get(pk=pk)
+    if request.user not in auction.participants.all():
+        auction.participants.add(request.user)
+        auction.save()
     context = {
-        "auction": auction
+        "auction": auction,
+        "lots": auction.lot_set.all(),
+        "participants": auction.participants.all()
     }
     return render(request, "auction/auction-info.html", context=context)
 
@@ -30,8 +35,6 @@ def auction_list_detail(request, pk: int):
 @login_required
 def auction_my(request):
     auctions = Auction.objects.filter(creator_id=request.user.id)
-    print("auction")
-    print(auctions)
     context = {
         "auctions": auctions,
     }
@@ -66,19 +69,6 @@ def auction_going(request, pk: int):
         return render(request, "auction/auction-going.html", context=context)
     return render(request, "auction/auction-not-going.html", context=context)
 
-
-def auction_going_accept(request, pk: int):
-    if request.method == "POST":
-        return HttpResponse("fsfesfs")
-    else:
-        auction = Auction.objects.get(pk=pk)
-        auction.is_completed = True
-
-        context = {
-            "auction": auction,
-            "IS-COM": auction.is_completed
-        }
-        return render(request, "success-auction.html", context=context)
 
 
 @login_required
@@ -122,16 +112,17 @@ def create_auction(request):
 
 
 def auction_bet(request, pk: int):
+    auction = Auction.objects.get(pk=pk)
     if request.method == "POST":
         if request.POST.get('bet', ''):
             bet = Decimal(request.POST.get('bet', ''))
             sender = request.user.id
-
         else:
-            bet = None
-            sender = None
+            return render(request, "auction/auction-going.html")
         if User.objects.get(pk=request.user.id).balance < bet:
             return HttpResponse("<h1>Не вистачає грошей</h1>")
+        if bet <= auction.current_bet:
+            return HttpResponse("<h1>Ставка не може бути менша за поточну!!!</h1>")
         Lot.objects.create(sender_id=sender, sum_of_bet=bet, auction_id=pk, is_completed=False)
 
         auction = Auction.objects.get(pk=pk)
@@ -161,7 +152,7 @@ def create_auction_success(request):
 
 def auction_list(request):
     context = {
-        "auction_list": Auction.objects.all()
+        "auction_list": Auction.objects.filter(is_completed=0)
     }
     return render(request, "auction/auction-list.html", context=context)
 
@@ -204,22 +195,26 @@ def auction_refactor(request, pk: int):
 
 
 def auction_ransom(request, pk: int):
+    auction = Auction.objects.get(pk=pk)
     context = {
-        "auction": Auction.objects.get(pk=pk),
-        "buyer": request.user,
+        "auction": auction,
+        "lots": auction.lot_set.all(),
+        "participants": auction.participants.all()
     }
     return render(request, "auction/auction-ransom.html", context=context)
 
 
 @atomic
 def auction_buy(request, pk: int):
+
     auction = Auction.objects.get(pk=pk)
     creator = auction.creator
     user = User.objects.get(pk=request.user.id)
-    if user < auction.price_of_ransom:
+    if user.balance < auction.price_of_ransom:
         return HttpResponse("<h1>Не вистачає грошей для викупу!!!</h1>")
     user.balance -= auction.price_of_ransom
     user.save()
+    auction.current_better = user
     creator.balance += auction.price_of_ransom
     creator.save()
     auction.is_completed = True
