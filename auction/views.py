@@ -1,16 +1,11 @@
 import datetime
-import os
 
 from _decimal import Decimal
 from django.contrib.auth.decorators import login_required
 from django.db.transaction import atomic
 from django.shortcuts import render
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
-from django.urls import reverse
-from django.views.decorators.csrf import csrf_protect
-from django.views.decorators.csrf import ensure_csrf_cookie
 from auction.models import Auction, User, Lot, Transation
-from django.contrib.auth import authenticate, login, logout
 
 from hakaton.views import account
 
@@ -50,7 +45,10 @@ def auction_going(request, pk: int):
         "participants": auction.participants.all()
     }
 
-    start_time = datetime.datetime.strptime(str(auction.time_of_start), "%Y-%m-%d %H:%M:%S")
+    start_time = datetime.datetime.strptime(
+        str(auction.time_of_start),
+        "%Y-%m-%d %H:%M:%S"
+    )
     if datetime.datetime.now() >= start_time:
 
         if request.method == "POST":
@@ -62,16 +60,21 @@ def auction_going(request, pk: int):
             auction.seconds_to_end -= 5
             auction.save()
         if auction.is_completed:
-            return render(request, "auction/auction-completed.html", context=context)
+            return render(
+                request,
+                "auction/auction-completed.html",
+                context=context
+            )
         return render(request, "auction/auction-going.html", context=context)
     return render(request, "auction/auction-not-going.html", context=context)
-
 
 
 @login_required
 def lots_my(request):
     if request.user.is_authenticated:
-        lots = Lot.objects.filter(sender_id=request.user.id).select_related("auction")
+        lots = Lot.objects.filter(
+            sender_id=request.user.id
+        ).select_related("auction")
         context = {
             "lots": lots,
         }
@@ -120,7 +123,12 @@ def auction_bet(request, pk: int):
             return HttpResponse("<h1>Не вистачає грошей</h1>")
         if bet <= auction.current_bet:
             return HttpResponse("<h1>Ставка не може бути менша за поточну!!!</h1>")
-        Lot.objects.create(sender_id=sender, sum_of_bet=bet, auction_id=pk, is_completed=False)
+        Lot.objects.create(
+            sender_id=sender,
+            sum_of_bet=bet,
+            auction_id=pk,
+            is_completed=False
+        )
 
         auction = Auction.objects.get(pk=pk)
         auction.current_better_id = sender
@@ -140,7 +148,11 @@ def complete_auction(auction: Auction):
     auction.creator.balance += auction.current_bet
     auction.creator.save()
     auction.save()
-    Transation.objects.create(sender=buyer, recipient=auction.creator, sum_of_transaction=auction.current_bet)
+    Transation.objects.create(
+        sender=buyer,
+        recipient=auction.creator,
+        sum_of_transaction=auction.current_bet
+    )
 
 
 def create_auction_success(request):

@@ -8,58 +8,60 @@
       }
 
       .auction-container {
-      background-color: lightgray;
-      margin-bottom: 35px;
-      position: relative;
-      max-height: 235px;
-  }
-      .auction-list-container {
-      background-color: aliceblue;
-      margin-bottom: 10px;
+          background-color: lightgray;
+          margin-bottom: 35px;
+          position: relative;
+          max-height: 235px;
+      }
 
-  }
-  .auction-photo {
-      margin: 10px;
-      padding: 5px;
-      width: 200px;
-      height: 200px;
-  }
-</style>
+      .auction-list-container {
+          background-color: aliceblue;
+          margin-bottom: 10px;
+
+      }
+
+      .auction-photo {
+          margin: 10px;
+          padding: 5px;
+          width: 200px;
+          height: 200px;
+      }
+  </style>
   <h1 style="text-align: center">Мої аукціони</h1>
-    <a href="/auction/create-auction"><button type="button"  class="btn btn-primary">Створити аукціон</button></a>
+  <a href="/auction/create-auction">
+    <button type="button" class="btn btn-primary">Створити аукціон</button>
+  </a>
   {% if auctions %}
     <div class="container mt-5 auction-list-container">
-  {% for auction in auctions %}
-        <!-- Аукціон 1 -->
+      {% for auction in auctions %}
         <div class="row auction-container">
-            <div class="col-md-3">
-                <img src="/media/{{ auction.image }}" alt="Фото аукціону" class="img-thumbnail auction-photo">
+          <div class="col-md-3">
+            <img src="/media/{{ auction.image }}" alt="Фото аукціону" class="img-thumbnail auction-photo">
+          </div>
+          <div class="col-md-9">
+            <h2>{{ auction.name }} - Дата початку: {{ auction.str_date }}</h2>
+            <div class="row">
+              <div class="col-8">
+                <h5>
+                  Стартова ціна: {{ auction.start_price }} <br/>
+                  Мінімальна ставка: {{ auction.minimal_bet }} <br/>
+                  Ціна викупу: {{ auction.price_of_ransom }}
+                </h5>
+                <p class="overflow-auto">{{ auction.description }}</p>
+              </div>
+              <div class="col-4 d-flex flex-column justify-content-end align-items-end pb-2">
+                <a href="/auction/{{ auction.id }}/refactor" class="btn btn-primary mb-2 col-5">Редагувати</a>
+                <a href="/auction/{{ auction.id }}/" class="btn btn-primary col-5">Детальніше</a>
+              </div>
             </div>
-            <div class="col-md-9">
-                <h2>{{ auction.name}} - Дата початку: {{ auction.str_date }}</h2>
-                <div class="row">
-                    <div class="col-8">
-                        <h5>
-                            Стартова ціна: {{ auction.start_price }} <br/>
-                            Мінімальна ставка: {{ auction.minimal_bet }} <br/>
-                            Ціна викупу: {{ auction.price_of_ransom }}
-                        </h5>
-                        <p class="overflow-auto">{{ auction.description }}</p>
-                    </div>
-                    <div class="col-4 d-flex flex-column justify-content-end align-items-end pb-2">
-                        <a href="/auction/{{ auction.id }}/refactor" class="btn btn-primary mb-2 col-5">Редагувати</a>
-                        <a href="/auction/{{ auction.id }}/" class="btn btn-primary col-5">Детальніше</a>
-                    </div>
-                </div>
-                <!-- Додайте інші елементи форми тут -->
-            </div>
-    </div>
-    {% endfor %}
+          </div>
         </div>
+      {% endfor %}
+    </div>
 
-    {% else %}
-        <p>В тебе немає аукціонів</p>
-    {% endif %}
+  {% else %}
+    <p>В тебе немає аукціонів</p>
+  {% endif %}
 
 
 {% endblock %}

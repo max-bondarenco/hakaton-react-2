@@ -1,62 +1,66 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}
-    <title>Create auction</title>
+  <title>Create auction</title>
 {% endblock %}
 
 <style>
-  body {
-      padding-top: 20px;
-      background-color: #f8f9fa; /* Світло-сірий фон */
-      color: #555; /* Темний сірий колір для тексту */
-  }
-  .container {
-      margin-top: 20px;
-      border-radius: 10px; /* Закруглені кути рамки */
-      padding: 20px; /* Відступ всередині контейнера */
-      box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Тінь */
-      border: 1px solid #ccc; /* Рамка навколо контейнера */
-  }
+    body {
+        padding-top: 20px;
+        background-color: #f8f9fa;
+        color: #555;
+    }
+
+    .container {
+        margin-top: 20px;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border: 1px solid #ccc;
+    }
 </style>
 
 {% block content %}
 
-<div class="container">
-  <h1>Редагування аукціону</h1>
-  <form method="POST" enctype='multipart/form-data'>
-    {% csrf_token %}
+  <div class="container">
+    <h1>Редагування аукціону</h1>
+    <form method="POST" enctype='multipart/form-data'>
+      {% csrf_token %}
       <div class="mb-3">
-          <label for="auctionName" class="form-label">Назва аукціону</label>
-          <input type="text" value="{{ auction.name }}" name="name" class="form-control" id="auctionName">
+        <label for="auctionName" class="form-label">Назва аукціону</label>
+        <input type="text" value="{{ auction.name }}" name="name" class="form-control" id="auctionName">
       </div>
       <div class="mb-3">
-          <label for="description" class="form-label">Опис</label>
-          <textarea class="form-control" name="description" id="description" rows="3">{{ auction.description }}</textarea>
+        <label for="description" class="form-label">Опис</label>
+        <textarea class="form-control" name="description" id="description" rows="3">{{ auction.description }}</textarea>
       </div>
       <div class="mb-3">
-          <label for="image" class="form-label">Картинка</label>
-          <input type="file" value="{{ auction.image }}" name="image" class="form-control" id="image">
+        <label for="image" class="form-label">Картинка</label>
+        <input type="file" value="{{ auction.image }}" name="image" class="form-control" id="image">
       </div>
       <div class="row">
-          <div class="col-md-6 mb-3">
-              <label for="startPrice" class="form-label">Початкова ціна</label>
-              <input type="number"  value="{{ auction.start_price }}" name="start_price" class="form-control" id="startPrice">
-          </div>
-          <div class="col-md-6 mb-3">
-              <label for="minBid" class="form-label">Мінімальна ставка</label>
-              <input type="number" value="{{ auction.minimal_bet }}" name="minimal_bet" class="form-control" id="minBid">
-          </div>
+        <div class="col-md-6 mb-3">
+          <label for="startPrice" class="form-label">Початкова ціна</label>
+          <input type="number" value="{{ auction.start_price }}" name="start_price" class="form-control"
+                 id="startPrice">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="minBid" class="form-label">Мінімальна ставка</label>
+          <input type="number" value="{{ auction.minimal_bet }}" name="minimal_bet" class="form-control" id="minBid">
+        </div>
       </div>
       <div class="mb-3">
-          <label for="buyoutPrice" class="form-label">Ціна викупу</label>
-          <input type="number" value="{{ auction.price_of_ransom }}" name="price_of_ransom" class="form-control" id="buyoutPrice">
+        <label for="buyoutPrice" class="form-label">Ціна викупу</label>
+        <input type="number" value="{{ auction.price_of_ransom }}" name="price_of_ransom" class="form-control"
+               id="buyoutPrice">
       </div>
       <div class="mb-3">
-          <label for="startTime" class="form-label">Час початку</label>
-          <input type="datetime-local" value="{{ auction.start_time_value}}" name="date_start" class="form-control" id="startTime">
+        <label for="startTime" class="form-label">Час початку</label>
+        <input type="datetime-local" value="{{ auction.start_time_value }}" name="date_start" class="form-control"
+               id="startTime">
       </div>
       <button type="submit" class="btn btn-primary">Зареєструвати аукціон</button>
-  </form>
-</div>
+    </form>
+  </div>
 
 {% endblock %}

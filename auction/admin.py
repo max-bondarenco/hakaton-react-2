@@ -1,6 +1,5 @@
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
-from .models import Auction, Transation, Lot, User
+from .models import Auction, User
 
 
 admin.site.register(Auction)

@@ -1,63 +1,63 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-    <style>
-        body {
-            background-color: #ffffff; /* Світло-сірий фон */
-            color: #555; /* Темний сірий колір для тексту */
-        }
+  <style>
+      body {
+          background-color: #ffffff;
+          color: #555;
+      }
 
-        .container {
-            margin-top: 20px;
-            border-radius: 10px; /* Закруглені кути рамки */
-            padding: 20px; /* Відступ всередині контейнера */
-            box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Тінь */
-            border: 1px solid #ccc; /* Рамка навколо контейнера */
-        }
+      .container {
+          margin-top: 20px;
+          border-radius: 10px;
+          padding: 20px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          border: 1px solid #ccc;
+      }
 
-        img {
-            max-width: 100%;
-            height: auto;
-        }
+      img {
+          max-width: 100%;
+          height: auto;
+      }
 
-        h1 {
-            color: #343a40; /* Темно-сірий колір для заголовків */
-        }
+      h1 {
+          color: #343a40;
+      }
 
-        p {
-            color: #777; /* Світло-сірий колір для тексту */
-        }
-    </style>
+      p {
+          color: #777;
+      }
+  </style>
   <h1 style="text-align: center;">Аукціон ще не розпочався!!!</h1>
-  <form  action="accepted/" method="post">
- {% csrf_token %}
-<div class="container">
-    <div class="row">
+  <form action="accepted/" method="post">
+    {% csrf_token %}
+    <div class="container">
+      <div class="row">
         <div class="col-md-2">
-            <img src="/media/{{auction.image }}" alt="Зображення аукціону" class="img-fluid">
+          <img src="/media/{{ auction.image }}" alt="Зображення аукціону" class="img-fluid">
         </div>
         <div class="col-md-10">
-                <p><strong>Початкова ставка:</strong> ${{auction.current_bet}}</p>
-                <p><strong>Мінімальний крок:</strong> ${{auction.minimal_bet }}</p>
-                <p><strong>Ціна викупу:</strong> ${{auction.price_of_ransom }}</p>
+          <p><strong>Початкова ставка:</strong> ${{ auction.current_bet }}</p>
+          <p><strong>Мінімальний крок:</strong> ${{ auction.minimal_bet }}</p>
+          <p><strong>Ціна викупу:</strong> ${{ auction.price_of_ransom }}</p>
 
         </div>
-    </div>
-    <hr> <!-- Роздільна лінія -->
-    <div class="row">
+      </div>
+      <hr>
+      <div class="row">
         <div class="col-md-12">
-            <p><strong>Поточний покупець:</strong> Немає</p>
-            <p><strong>Поточна ставка:</strong> Немає</p>
+          <p><strong>Поточний покупець:</strong> Немає</p>
+          <p><strong>Поточна ставка:</strong> Немає</p>
 
-            <hr>
+          <hr>
         </div>
+      </div>
+
+
     </div>
-
-
-</div>
-  <button type="submit" hidden="hidden" id="successed">ss</button>
+    <button type="submit" hidden="hidden" id="successed">ss</button>
   </form>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
 
 {% endblock %}

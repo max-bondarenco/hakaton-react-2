@@ -1,122 +1,117 @@
 {% extends "base.html" %} {% block content %} {% load static %}
-<div class="container">
+  <div class="container">
     <h1 style="text-align: center">Profile</h1>
-<section class="pb-4">
-        <div class="border rounded-5">
-            <section class="w-100 p-4" style="background-color: #eee; border-radius: 0.5rem 0.5rem 0 0">
+    <section class="pb-4">
+      <div class="border rounded-5">
+        <section class="w-100 p-4" style="background-color: #eee; border-radius: 0.5rem 0.5rem 0 0">
 
 
-                <div class="row">
-                    <div class="col-lg-4">
-                        <div class="card mb-4">
-                            <div class="card-body text-center">
-                                <img src="/{{ user.avatar  }}" alt="avatar" class="rounded-circle img-fluid" style="width: 150px">
-                                <h5 class="my-3">{{ user }}</h5>
-                                <p class="text-muted mb-1">
-                                    Full Stack Developer
-                                </p>
-                                <p class="text-muted mb-4">
-                                   Kyiv KPI University
-                                </p>
-                                <div class="d-flex justify-content-center mb-2">
-                                    <button type="button" class="btn btn-primary">
-                                        Змінити аватар
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="col-lg-8">
-                        <div class="card mb-4">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <p class="mb-0">Логін</p>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <p class="text-muted mb-0">
-                                            {{ user }}
-                                        </p>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <p class="mb-0">Почта</p>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <p class="text-muted mb-0">
-                                            {{ user.email }}
-                                        </p>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <p class="mb-0">Баланс:</p>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <p class="text-muted mb-0">
-                                            {{ user.balance }} $
-                                        </p>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <p class="mb-0">Телефон</p>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <p class="text-muted mb-0">
-                                            {{ user.phone }}
-                                        </p>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <p class="mb-0">Країна</p>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <p class="text-muted mb-0">
-                                            {{ user.country }}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
+          <div class="row">
+            <div class="col-lg-4">
+              <div class="card mb-4">
+                <div class="card-body text-center">
+                  <img src="/{{ user.avatar }}" alt="avatar" class="rounded-circle img-fluid" style="width: 150px">
+                  <h5 class="my-3">{{ user }}</h5>
+                  <div class="d-flex justify-content-center mb-2">
+                    <button type="button" class="btn btn-primary">
+                      Змінити аватар
+                    </button>
+                  </div>
                 </div>
-            </section>
+              </div>
 
-            <div class="p-4 text-center border-top mobile-hidden">
-                <a class="btn btn-link px-3 collapsed" data-mdb-collapse-init="" href="#example3" role="button" aria-expanded="false" aria-controls="example3" data-ripple-color="hsl(0, 0%, 67%)">
-                    <i class="fas fa-code me-md-2"></i>
-                    <span class="d-none d-md-inline-block"> Редагувати інформацію </span>
-                </a>
+            </div>
+            <div class="col-lg-8">
+              <div class="card mb-4">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <p class="mb-0">Логін</p>
+                    </div>
+                    <div class="col-sm-9">
+                      <p class="text-muted mb-0">
+                        {{ user }}
+                      </p>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <p class="mb-0">Почта</p>
+                    </div>
+                    <div class="col-sm-9">
+                      <p class="text-muted mb-0">
+                        {{ user.email }}
+                      </p>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <p class="mb-0">Баланс:</p>
+                    </div>
+                    <div class="col-sm-9">
+                      <p class="text-muted mb-0">
+                        {{ user.balance }} $
+                      </p>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <p class="mb-0">Телефон</p>
+                    </div>
+                    <div class="col-sm-9">
+                      <p class="text-muted mb-0">
+                        {{ user.phone }}
+                      </p>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <p class="mb-0">Країна</p>
+                    </div>
+                    <div class="col-sm-9">
+                      <p class="text-muted mb-0">
+                        {{ user.country }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-                <a class="btn btn-link px-3" data-ripple-color="hsl(0, 0%, 67%)">
-                    <i class="fas fa-file-code me-md-2 pe-none"></i>
-                    <span class="d-none d-md-inline-block export-to-snippet pe-none">
+            </div>
+          </div>
+        </section>
+
+        <div class="p-4 text-center border-top mobile-hidden">
+          <a class="btn btn-link px-3 collapsed" data-mdb-collapse-init="" href="#example3" role="button"
+             aria-expanded="false" aria-controls="example3" data-ripple-color="hsl(0, 0%, 67%)">
+            <i class="fas fa-code me-md-2"></i>
+            <span class="d-none d-md-inline-block"> Редагувати інформацію </span>
+          </a>
+
+          <a class="btn btn-link px-3" data-ripple-color="hsl(0, 0%, 67%)">
+            <i class="fas fa-file-code me-md-2 pe-none"></i>
+            <span class="d-none d-md-inline-block export-to-snippet pe-none">
                         Змінити пароль
                     </span>
-                </a>
+          </a>
 
-                <a class="btn btn-link px-3" data-ripple-color="hsl(0, 0%, 67%)"  href="/accounts/logout/?next=/account/">
-                    <i class="fas fa-file-code me-md-2 pe-none"></i>
-                    <span class="d-none d-md-inline-block export-to-snippet pe-none">
+          <a class="btn btn-link px-3" data-ripple-color="hsl(0, 0%, 67%)" href="/accounts/logout/?next=/account/">
+            <i class="fas fa-file-code me-md-2 pe-none"></i>
+            <span class="d-none d-md-inline-block export-to-snippet pe-none">
                         Вийти
                     </span>
-                </a>
-            </div>
+          </a>
         </div>
+      </div>
     </section>
 
   </div>
 {% endblock %}
 
 {% block title %}
-      <title>Profile</title>
+  <title>Profile</title>
 {% endblock %}

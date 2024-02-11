@@ -1,67 +1,67 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-    <style>
-        body {
-            background-color: #ffffff; /* Світло-сірий фон */
-            color: #555; /* Темний сірий колір для тексту */
-        }
+  <style>
+      body {
+          background-color: #ffffff;
+          color: #555;
+      }
 
-        .container {
-            margin-top: 20px;
-            border-radius: 10px; /* Закруглені кути рамки */
-            padding: 20px; /* Відступ всередині контейнера */
-            box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Тінь */
-            border: 1px solid #ccc; /* Рамка навколо контейнера */
-        }
+      .container {
+          margin-top: 20px;
+          border-radius: 10px;
+          padding: 20px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          border: 1px solid #ccc;
+      }
 
-        img {
-            max-width: 100%;
-            height: auto;
-        }
+      img {
+          max-width: 100%;
+          height: auto;
+      }
 
-        h1 {
-            color: #343a40; /* Темно-сірий колір для заголовків */
-        }
+      h1 {
+          color: #343a40;
+      }
 
-        p {
-            color: #777; /* Світло-сірий колір для тексту */
-        }
-    </style>
+      p {
+          color: #777;
+      }
+  </style>
   <h2 style="text-align: center">Аукціон завершено!!!</h2>
-<div class="container">
+  <div class="container">
     <div class="row">
-        <div class="col-md-2">
-            <img src="/media/{{auction.image }}" alt="Зображення аукціону" class="img-fluid">
-        </div>
-        <div class="col-md-10">
-                <p><strong>Початкова ставка:</strong> {{ auction.start_price }}$</p>
-                <p><strong>Мінімальний крок:</strong> {{ auction.minimal_bet }}$</p>
-                <p><strong>Ціна викупу:</strong> {{ auction.price_of_ransom }}$</p>
+      <div class="col-md-2">
+        <img src="/media/{{ auction.image }}" alt="Зображення аукціону" class="img-fluid">
+      </div>
+      <div class="col-md-10">
+        <p><strong>Початкова ставка:</strong> {{ auction.start_price }}$</p>
+        <p><strong>Мінімальний крок:</strong> {{ auction.minimal_bet }}$</p>
+        <p><strong>Ціна викупу:</strong> {{ auction.price_of_ransom }}$</p>
 
-        </div>
+      </div>
     </div>
-    <hr> <!-- Роздільна лінія -->
+    <hr>
     <div class="row">
-        <div class="col-md-12">
-            <p><strong>Останній покупець:</strong> {{ auction.current_better }}</p>
-            <p><strong>Остання ставка:</strong> {{ auction.minimal_bet }}</p>
-            <hr>
-        </div>
+      <div class="col-md-12">
+        <p><strong>Останній покупець:</strong> {{ auction.current_better }}</p>
+        <p><strong>Остання ставка:</strong> {{ auction.minimal_bet }}</p>
+        <hr>
+      </div>
     </div>
-</div>
+  </div>
 
   <div class="container">
-  <h3>Брали участь:</h3>
-  {% for participant in participants %}
-  <h5>{{ participant.username }}</h5>
-  {% endfor %}
+    <h3>Брали участь:</h3>
+    {% for participant in participants %}
+      <h5>{{ participant.username }}</h5>
+    {% endfor %}
   </div>
   <div class="container">
-   <h3>Лоти:</h3>
-  {% for lot in lots %}
-  <h5>{{ lot.str_date }} - {{ lot.sum_of_bet }} - {{ lot.sender }}</h5>
-  {% endfor %}
+    <h3>Лоти:</h3>
+    {% for lot in lots %}
+      <h5>{{ lot.str_date }} - {{ lot.sum_of_bet }} - {{ lot.sender }}</h5>
+    {% endfor %}
   </div>
 
 {% endblock %}

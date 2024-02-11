@@ -4,10 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.urls import reverse
-from django.views.decorators.csrf import csrf_protect
-from django.views.decorators.csrf import ensure_csrf_cookie
-from auction.models import Auction, User
-from django.contrib.auth import authenticate, login, logout
+from auction.models import User
+from django.contrib.auth import authenticate, login
 
 
 @login_required
@@ -33,12 +31,16 @@ def sign_up(request: HttpRequest):
             user.set_password(password1)
             try:
                 user.save()
-            except Exception :
+            except Exception:
                 return render(request, "registration/unsuccess-sign-up.html")
         else:
-            return HttpResponse("""accepts only letters of the Latin alphabet Aa-Zz, digits 0-9 or special character 
-            from $@#&!-_; at least 8 characters; maximum 16 characters inclusive; contains at least 1 digit, 
-            1 special character, 1 uppercase letter.""")
+            return HttpResponse(
+                """accepts only letters of the Latin alphabet Aa-Zz, 
+                   digits 0-9 or special character from $@#&!-_;
+                   at least 8 characters; maximum 16 characters inclusive;
+                   contains at least 1 digit,
+                   1 special character, 1 uppercase letter."""
+            )
         return HttpResponseRedirect("/account/")
     return render(request, "registration/sign-up.html")
 
@@ -49,8 +51,8 @@ def sign_in(request: HttpRequest):
 
 def validation_login(request: HttpRequest):
     if request.method == 'POST':
-        name = request.POST.get('username', '')
-        password = request.POST.get('password', '')
+        name = request.POST['username']
+        password = request.POST.get['password']
         user = authenticate(username=name, password=password)
 
         if user:

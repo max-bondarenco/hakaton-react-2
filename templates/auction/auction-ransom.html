@@ -1,25 +1,25 @@
 {% extends 'base.html' %}
 {% block content %}
   <h2 style="text-align: center">Аукціон завершено!!!</h2>
-<div class="container">
+  <div class="container">
     <div class="row">
-        <div class="col-md-2">
-            <img src="/media/{{auction.image}}" alt="Зображення аукціону" class="img-fluid">
-        </div>
-        <div class="col-md-10">
-                <p><strong>Початкова ставка:</strong> {{ auction.start_price }}$</p>
-                <p><strong>Мінімальний крок:</strong> {{ auction.minimal_bet }}$</p>
-                <p><strong>Ціна викупу:</strong> {{ auction.price_of_ransom }}$</p>
+      <div class="col-md-2">
+        <img src="/media/{{ auction.image }}" alt="Зображення аукціону" class="img-fluid">
+      </div>
+      <div class="col-md-10">
+        <p><strong>Початкова ставка:</strong> {{ auction.start_price }}$</p>
+        <p><strong>Мінімальний крок:</strong> {{ auction.minimal_bet }}$</p>
+        <p><strong>Ціна викупу:</strong> {{ auction.price_of_ransom }}$</p>
 
-        </div>
+      </div>
     </div>
-    <hr> <!-- Роздільна лінія -->
+    <hr>
     <div class="row">
-        <div class="col-md-12">
-            <p><strong>Останній покупець:</strong> {{ auction.current_better }}</p>
-            <p><strong>Остання ставка:</strong> {{ auction.minimal_bet }}</p>
-            <hr>
-        </div>
+      <div class="col-md-12">
+        <p><strong>Останній покупець:</strong> {{ auction.current_better }}</p>
+        <p><strong>Остання ставка:</strong> {{ auction.minimal_bet }}</p>
+        <hr>
+      </div>
     </div>
-</div>
+  </div>
 {% endblock %}
