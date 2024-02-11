@@ -32,7 +32,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-2">
-            <img src="{% static auction.image %}" alt="Зображення аукціону" class="img-fluid">
+            <img src="/media/{{auction.image }}" alt="Зображення аукціону" class="img-fluid">
         </div>
         <div class="col-md-10">
                 <p><strong>Початкова ставка:</strong> {{ auction.start_price }}$</p>
@@ -50,5 +50,18 @@
         </div>
     </div>
 </div>
+
+  <div class="container">
+  <h3>Брали участь:</h3>
+  {% for participant in participants %}
+  <h5>{{ participant.username }}</h5>
+  {% endfor %}
+  </div>
+  <div class="container">
+   <h3>Лоти:</h3>
+  {% for lot in lots %}
+  <h5>{{ lot.str_date }} - {{ lot.sum_of_bet }} - {{ lot.sender }}</h5>
+  {% endfor %}
+  </div>
 
 {% endblock %}

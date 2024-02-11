@@ -33,12 +33,16 @@ class Auction(models.Model):
     time_of_start = models.DateTimeField()
     seconds_to_end = models.IntegerField(default=60)
     is_completed = models.BooleanField(default=False)
+    participants = models.ManyToManyField(User)
 
     class Meta:
         ordering = ["-time_of_start"]
 
     def __str__(self):
         return f"{self.name} {self.time_of_start}"
+
+    def start_time_value(self):
+        return datetime.datetime.strftime(self.time_of_start, "%Y-%m-%dT%H:%M")
 
     def str_date(self):
         return datetime.datetime.strftime(self.time_of_start, "%m/%d/%Y, %H:%M:%S")

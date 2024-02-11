@@ -26,7 +26,7 @@ class AuctionCreateView(generic.CreateView):
 class AuctionModelCreateView(CreateView):
     model = Auction
     form_class = AuctionModelForm
-    template_name = 'auction/create-auction.html'  # Путь к вашему шаблону формы
+    template_name = 'auction/auction-create.html'  # Путь к вашему шаблону формы
     success_url = '/success-auction.html/'  # URL, куда перенаправить после успешного создания объекта
 
 
