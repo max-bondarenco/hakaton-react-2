@@ -1,8 +1,10 @@
 
+
 from django.urls import path, include
 
 from auction.views import auction_list_detail, auction_my, auction_going, auction_going_accept, lots_my, create_auction, \
     create_auction_success, auction_list, auction_bet
+
 
 urlpatterns = [
     path('', auction_list, name="auction"),

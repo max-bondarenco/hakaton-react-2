@@ -1,4 +1,5 @@
 import datetime
+import os
 
 from _decimal import Decimal
 from django.contrib.auth.decorators import login_required
@@ -12,8 +13,6 @@ from auction.models import Auction, User, Lot, Transation
 from django.contrib.auth import authenticate, login, logout
 
 from hakaton.views import account
-
-
 def index(request: HttpRequest):
     return render(request, "index.html")
 
@@ -173,3 +172,4 @@ def auction_list(request):
         "auction_list": Auction.objects.all()
     }
     return render(request, "auction/auction-list.html", context=context)
+
