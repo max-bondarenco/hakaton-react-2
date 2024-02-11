@@ -124,7 +124,7 @@ def create_auction(request):
         except Exception as e:
             print("exception", e)
             return HttpResponse(e)
-        return create_auction_success(request)
+        return render(request, "auction/auction-my.html")
     return render(request, "auction/create-auction.html")
 
 
