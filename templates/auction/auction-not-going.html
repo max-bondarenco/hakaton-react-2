@@ -53,7 +53,7 @@
             transition: width 1s linear, background-color 1s linear;
         }
     </style>
-  <input id="csrf" type="hidden" name="csrf-token" value="{% csrf_token %}" >
+  <h1 style="text-align: center;">Аукціон ще не розпочався!!!</h1>
   <form  action="accepted/" method="post">
  {% csrf_token %}
 <div class="container">
@@ -62,37 +62,22 @@
             <img src="{% static auction.image %}" alt="Зображення аукціону" class="img-fluid">
         </div>
         <div class="col-md-10">
-                <p><strong>Початкова ставка:</strong> $100</p>
-                <p><strong>Мінімальний крок:</strong> $10</p>
-                <p><strong>Ціна викупу:</strong> $500</p>
+                <p><strong>Початкова ставка:</strong> ${{auction.current_bet}}</p>
+                <p><strong>Мінімальний крок:</strong> ${{auction.minimal_bet }}</p>
+                <p><strong>Ціна викупу:</strong> ${{auction.price_of_ransom }}</p>
 
         </div>
     </div>
     <hr> <!-- Роздільна лінія -->
     <div class="row">
         <div class="col-md-12">
-            <p><strong>Поточний покупець:</strong> Ярчик</p>
-            <p><strong>Поточна ставка:</strong> 150</p>
-            <div class="timer-container">
-                <p><strong>Залишок часу:</strong> <span id="timer"></span></p>
-                <div class="progress-bar">
-                    <div class="progress"></div>
-                </div>
-            </div>
+            <p><strong>Поточний покупець:</strong> Немає</p>
+            <p><strong>Поточна ставка:</strong> Немає</p>
 
             <hr>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-6 d-flex justify-content-start align-items-center">
-            <button class="btn btn-primary">Викупити</button>
-        </div>
-        <div class="col-md-6 d-flex justify-content-end align-items-center">
-            <!-- динамически менять мин -->
-            <input type="number" min="100" class="form-control" placeholder="Ваша ставка" style="width: 140px;">
-            <button class="btn btn-primary">Перебити ставку</button>
-        </div>
-    </div>
+
 
 </div>
   <button type="submit" hidden="hidden" id="successed">ss</button>
@@ -104,7 +89,7 @@
     var progress = document.querySelector('.progress');
     var timerElement = document.getElementById('timer');
 
-    var totalTime = 10; // Время в секундах
+    var totalTime = 100; // Время в секундах
     var remainingTime = totalTime;
     var interval = 1000; // Интервал обновления (1 секунда)
 

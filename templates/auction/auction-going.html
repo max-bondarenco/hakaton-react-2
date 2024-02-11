@@ -31,6 +31,27 @@
             font-size: 24px;
             font-weight: bold;
         }
+        .timer-container {
+            width: 300px;
+            margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            height: 20px;
+            background-color: #eee;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 10px;
+            width: 100%; /* Растягиваем полосу на всю ширину контейнера */
+        }
+
+
+        .progress {
+            height: 100%;
+            width: 100%; /* Заполняем полосу на всю ширину контейнера */
+            background-color: green;
+            transition: width 1s linear, background-color 1s linear;
+        }
     </style>
   <h2 style="text-align: center">Аукціон ще не розпочався!!!</h2>
   <form  action="accepted/" method="post">
@@ -41,10 +62,37 @@
             <img src="{% static auction.image %}" alt="Зображення аукціону" class="img-fluid">
         </div>
 
+    </div>
+    <hr> <!-- Роздільна лінія -->
+    <div class="row">
+        <div class="col-md-12">
+          {% if auction.current_better %}
+            <p><strong>Поточний покупець:</strong> {{ auction.current_better }}</p>
+            <p><strong>Поточна ставка:</strong> {{ auction.current_bet }}</p>
+            <div class="timer-container">
+                <p><strong>Залишок часу:</strong> <span id="timer"></span></p>
+                <div class="progress-bar">
+                    <div class="progress"></div>
+                </div>
+            </div>
+            {% else %}
+            <p><strong>Поточний покупець:</strong> Немає</p>
+            <p><strong>Поточна ставка:</strong> Немає</p>
+          {% endif %}
+
             <hr>
         </div>
     </div>
-
+    <div class="row">
+        <div class="col-md-6 d-flex justify-content-start align-items-center">
+            <button class="btn btn-primary">Викупити</button>
+        </div>
+        <div class="col-md-6 d-flex justify-content-end align-items-center">
+            <!-- динамически менять мин -->
+            <input type="number" min="100" class="form-control" placeholder="Ваша ставка" style="width: 140px;">
+            <button type="button"  class="btn btn-primary">Перебити ставку</button>
+        </div>
+    </div>
 
 </div>
   <button type="submit" hidden="hidden" id="successed">ss</button>

@@ -24,7 +24,7 @@ def auction_list_detail(request, pk: int):
     }
     return render(request, "auction/auction-info.html", context=context)
 
-
+@login_required
 def auction_my(request):
     auctions = Auction.objects.filter(creator_id=request.user.id)
     print("auction")
@@ -34,7 +34,7 @@ def auction_my(request):
     }
     return render(request, "auction/auction-my.html", context=context)
 
-
+@login_required
 def auction_going(request, pk: int):
     auction = Auction.objects.get(pk=pk)
     context = {
@@ -82,6 +82,7 @@ def auction_going_accept(request, pk: int):
         return render(request, "success-auction.html", context=context)
 
 
+@login_required
 def lots_my(request):
     if request.user.is_authenticated:
         auctions = Lot.objects.filter(sender_id=request.user.id)
@@ -94,11 +95,12 @@ def lots_my(request):
     return account(request)
 
 
+@login_required
 def create_auction(request):
     if request.method == "POST":
         name = request.POST["name"]
         description = request.POST["description"]
-        image = request.POST["name"]
+        image = request.POST["image"]
         start_price = request.POST["start_price"]
         minimal_bet = request.POST["minimal_bet"]
         price_of_ransom = request.POST["price_of_ransom"]

@@ -21,7 +21,7 @@ class Transation(models.Model):
 class Auction(models.Model):
     name = models.CharField(max_length=255, default="Auction")
     description = models.TextField(blank=True, null=True, max_length=700)
-    image = models.ImageField(upload_to="../static/media/auction-images/", blank=True, null=True)
+    image = models.ImageField(upload_to="media/auction-images/", blank=True, null=True)
     creator = models.ForeignKey(to=User, on_delete=models.DO_NOTHING, related_name="auctions")
 
     current_better = models.ForeignKey(to=User, on_delete=models.DO_NOTHING, null=True, blank=True,
