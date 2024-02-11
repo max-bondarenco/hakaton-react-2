@@ -20,11 +20,7 @@
       width: 200px;
       height: 200px;
   }
-  .btn-details {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-  }</style>
+</style>
   <h1 style="text-align: center">Мої аукціони</h1>
     <a href="/auction/create-auction"><button type="button"  class="btn btn-primary">Створити аукціон</button></a>
   {% if auctions %}
@@ -35,13 +31,22 @@
             <div class="col-md-3">
                 <img src="{% static auction.image %}" alt="Фото аукціону" class="img-thumbnail auction-photo">
             </div>
-            <div class="col-md-9">
+                        <div class="col-md-9">
                 <h2>{{ auction.name}} - Дата початку: {{ auction.str_date }}</h2>
-                <h5>Стартова ціна: {{ auction.start_price }}
-                Мінімальна ставка: {{ auction.minimal_bet }}
-                Ціна викупу: {{ auction.price_of_ransom }}</h5>
-                <p>{{ auction.description }}</p>
-                <a href="/auction/{{ auction.id }}/" class="btn btn-primary btn-details">Детальніше</a>
+                <div class="row">
+                    <div class="col">
+                        <h5>
+                            Стартова ціна: {{ auction.start_price }} <br/>
+                            Мінімальна ставка: {{ auction.minimal_bet }} <br/>
+                            Ціна викупу: {{ auction.price_of_ransom }}
+                        </h5>
+                        <p>{{ auction.description }}</p>
+                    </div>
+                    <div class="col-4 d-flex flex-column justify-content-end align-items-end pb-2">
+                        <a href="{{ auction.id }}/" class="btn btn-primary mb-2 col-5">Редагувати</a>
+                        <a href="{{ auction.id }}/" class="btn btn-primary col-5">Детальніше</a>
+                    </div>
+                </div>
                 <!-- Додайте інші елементи форми тут -->
             </div>
     </div>
