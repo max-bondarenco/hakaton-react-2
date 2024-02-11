@@ -6,7 +6,7 @@ from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
     balance = models.DecimalField(max_digits=15, decimal_places=2, default=0)
-    avatar = models.ImageField(upload_to="media/avatars", null="avatar.jpg")
+    avatar = models.ImageField(upload_to="media/avatars", default="media/avatars/default_user.png")
     phone = models.CharField(max_length=14, default=0)
 
 

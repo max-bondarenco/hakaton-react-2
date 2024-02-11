@@ -1,6 +1,17 @@
 {% extends "base.html" %}
 
 {% block content %}
+    <style>
+    .fixed-size-btn {
+      width: 300px; /* фіксована ширина кнопки */
+      height: 40px; /* фіксована висота кнопки */
+      margin: 10px; /* відступи між кнопками */
+    }
+  </style>
   <h1 style="text-align: center">Ти створив аукціон</h1>
   <h5 style="text-align: center">Вітаю!!!</h5>
+  <div style="text-align: center">
+    <a href="/" class="btn btn-primary fixed-size-btn">Повернутися на головний екран</a>
+    <a href="/auction/create-auction" class="btn btn-primary fixed-size-btn">Створити ще один аукціон</a>
+  </div>
 {% endblock %}
