@@ -35,6 +35,7 @@
                    placeholder="Search..."
                    aria-label="Search"
             />
+          {% csrf_token %}
         </form>
         {% if request.user.is_authenticated %}
             <div class="dropdown text-end">
