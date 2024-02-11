@@ -32,7 +32,7 @@
         <!-- Аукціон 1 -->
         <div class="row auction-container">
             <div class="col-md-3">
-                <img src="{% static auction.image %}" alt="Фото аукціону" class="img-thumbnail auction-photo">
+                <img src="media/{{auction.image}}" alt="Фото аукціону" class="img-thumbnail auction-photo">
             </div>
             <div class="col-md-9">
                 <h2>{{ auction.name}} - Дата початку: {{ auction.str_date }}</h2>

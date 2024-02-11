@@ -1,5 +1,6 @@
 import datetime
 
+from _decimal import Decimal
 from django.contrib.auth.decorators import login_required
 from django.db.transaction import atomic
 from django.shortcuts import render
@@ -36,13 +37,15 @@ def auction_my(request):
 
 @login_required
 def auction_going(request, pk: int):
+    if request.method == "POST":
+        auction_bet(request, pk)
     auction = Auction.objects.get(pk=pk)
     context = {
         "auction": auction,
     }
     if auction.seconds_to_end == 0 and not auction.is_completed:
         complete_auction(auction)
-    if not auction.is_completed:
+    if not auction.is_completed and auction.current_better_id:
         auction.seconds_to_end -= 5
         auction.save()
         print("Second to end:")
@@ -120,6 +123,7 @@ def create_auction(request):
             print(Auction.objects.last())
 
         except Exception as e:
+            print("exception", e)
             return HttpResponse(e)
         return create_auction_success(request)
     return render(request, "auction/create-auction.html")
@@ -128,21 +132,20 @@ def create_auction(request):
 def auction_bet(request, pk: int):
     if request.method == "POST":
         sender = request.user.id
-        bet = request.POST.get('username', '')
-        Lot.objects.create(sender=sender, sum_of_bet=bet, auction_id=pk)
+        bet = Decimal(request.POST.get('bet', ''))
+        Lot.objects.create(sender_id=sender, sum_of_bet=bet, auction_id=pk, is_completed=False)
+        if User.objects.get(pk=request.user.id).balance < bet:
+            return HttpResponse("<h1>Не вистачає грошей</h1>")
         auction = Auction.objects.get(pk=pk)
-        auction.current_better = sender
-        auction.current_bet = bet
+        auction.current_better_id = sender
         auction.current_bet = bet
         auction.seconds_to_end = 60
-
-        return HttpResponse("fsfesfs")
-    else:
-        print("------------------")
-        print("------------------")
-        return render(request, "success-auction.html")
-
-
+        auction.save()
+        print(auction.current_bet)
+        print(auction.current_bet)
+        print(auction.current_bet)
+        return auction_going(request, pk)
+    return HttpResponse("<H1>Помилка</H1>")
 @atomic
 def complete_auction(auction: Auction):
     auction.is_completed = True
@@ -153,3 +156,10 @@ def complete_auction(auction: Auction):
 
 def create_auction_success(request):
     return render(request, "auction/success-auction-create.html")
+
+
+def auction_list(request):
+    context = {
+        "auction_list": Auction.objects.all()
+    }
+    return render(request, "auction/auction-list.html", context=context)
