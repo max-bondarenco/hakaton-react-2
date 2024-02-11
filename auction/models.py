@@ -7,7 +7,7 @@ from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
     balance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    avatar = models.ImageField(upload_to="media/avatars")
+    avatar = models.ImageField(upload_to="media/avatars", null="avatar.jpg")
     phone = models.CharField(max_length=14, default=0)
 
 
@@ -21,7 +21,7 @@ class Transation(models.Model):
 class Auction(models.Model):
     name = models.CharField(max_length=255, default="Auction")
     description = models.TextField(blank=True, null=True, max_length=700)
-    image = models.ImageField(upload_to="media/auction-images/", blank=True, null=True)
+    image = models.ImageField(upload_to="auction-images/", blank=True, null=True)
     creator = models.ForeignKey(to=User, on_delete=models.DO_NOTHING, related_name="auctions")
 
     current_better = models.ForeignKey(to=User, on_delete=models.DO_NOTHING, null=True, blank=True,

@@ -1,4 +1,5 @@
-
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import path, include
 
 from auction.forms import AuctionListView, AuctionModelCreateView
@@ -14,5 +15,7 @@ urlpatterns = [
     path('create-auction/success', create_auction_success, name='create_auction_success'),
     path('my-lots/', lots_my),
     ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 app_name = "auction"
