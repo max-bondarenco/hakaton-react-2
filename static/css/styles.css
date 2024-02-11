@@ -3,11 +3,7 @@
     font-family: 'Roboto', sans-serif;
 }
 
-.auction-container {
-      background-color: black;
-      margin-bottom: 35px;
-      position: relative;
-  }
+
   .auction-photo {
       width: 200px;
       height: 200px;

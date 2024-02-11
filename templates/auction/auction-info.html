@@ -33,7 +33,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-2">
-            <img src="{% static auction.image %}" alt="Зображення аукціону" class="img-fluid">
+            <img src="/media/{{auction.image }}" alt="Зображення аукціону" class="img-fluid">
         </div>
         <div class="col-md-10">
             <h1><strong>{{ auction.name }}</strong> </h1>
@@ -53,13 +53,14 @@
     </div>
     <div class="row">
         <div>
-            <h1>Участники:</h1>
-            <p>Ярчик</p>
-            <p>Іванко</p>
+
             <div class="d-flex justify-content-center align-items-center">
               <a href="going/" class="btn btn-primary">Взяти участь</a>
             </div>
         </div>
     </div>
+  <div class="container">
+   <h3>Учасників: {{ auction.participants.count }}</h3>
+  </div>
 </div>
 {% endblock %}
