@@ -43,8 +43,8 @@
                    data-bs-toggle="dropdown"
                    aria-expanded="false"
                 >
-                    <!-- TODO: замінити на автарку користувача з сервера -->
-                    <img src="{% static "img/default_user.png" %}"
+                  <img
+                    src="/{{ request.user.avatar  }}"
                          width="32"
                          height="32"
                          class="rounded-circle"
