@@ -23,7 +23,7 @@
 
 <div class="container">
   <h1>Реєстрація аукціону</h1>
-  <form method="POST">
+  <form method="POST" enctype='multipart/form-data'>
     {% csrf_token %}
       <div class="mb-3">
           <label for="auctionName" class="form-label">Назва аукціону</label>

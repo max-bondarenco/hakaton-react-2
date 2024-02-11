@@ -33,7 +33,7 @@ urlpatterns = [
     path('sign-up/verify/success', account, name="sign_up_verify")
 ]
 
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
+urlpatterns += static(settings.MEDIA_URL,
+                      document_root=settings.MEDIA_ROOT)
 
 app_name = "auction_service"

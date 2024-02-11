@@ -25,6 +25,7 @@ def auction_list_detail(request, pk: int):
     }
     return render(request, "auction/auction-info.html", context=context)
 
+
 @login_required
 def auction_my(request):
     auctions = Auction.objects.filter(creator_id=request.user.id)
@@ -35,10 +36,11 @@ def auction_my(request):
     }
     return render(request, "auction/auction-my.html", context=context)
 
+
 @login_required
 def auction_going(request, pk: int):
     if request.method == "POST":
-        auction_bet(request, pk)
+        return auction_bet(request, pk)
     auction = Auction.objects.get(pk=pk)
     context = {
         "auction": auction,
@@ -88,11 +90,9 @@ def auction_going_accept(request, pk: int):
 @login_required
 def lots_my(request):
     if request.user.is_authenticated:
-        auctions = Lot.objects.filter(sender_id=request.user.id)
-        print("auction")
-        print(auctions)
+        lots = Lot.objects.filter(sender_id=request.user.id).select_related("auction")
         context = {
-            "auctions": auctions,
+            "lots": lots,
         }
         return render(request, "auction/lots-my.html", context=context)
     return account(request)
@@ -103,7 +103,7 @@ def create_auction(request):
     if request.method == "POST":
         name = request.POST["name"]
         description = request.POST["description"]
-        image = request.POST["image"]
+        image = request.FILES["image"]
         start_price = request.POST["start_price"]
         minimal_bet = request.POST["minimal_bet"]
         price_of_ransom = request.POST["price_of_ransom"]
@@ -144,14 +144,24 @@ def auction_bet(request, pk: int):
         print(auction.current_bet)
         print(auction.current_bet)
         print(auction.current_bet)
-        return auction_going(request, pk)
+        return HttpResponseRedirect(f"/auction/{pk}/going")
     return HttpResponse("<H1>Помилка</H1>")
+
+
 @atomic
 def complete_auction(auction: Auction):
     auction.is_completed = True
-    auction.save()
     buyer = auction.current_better
+    print(buyer.balance)
+    print(auction.creator.balance)
     Transation.objects.create(sender=buyer, recipient=auction.creator, sum_of_transaction=auction.current_bet)
+    auction.creator.balance += auction.current_bet
+    buyer.balance -= auction.current_bet
+    buyer.save()
+    auction.save()
+    print(buyer.balance)
+    print(auction.creator.balance)
+
 
 
 def create_auction_success(request):
