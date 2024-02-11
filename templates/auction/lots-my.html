@@ -3,50 +3,70 @@
 {% block content %}
   {% load static %}
   <style>
-      .auction-container {
-      background-color: lightgray;
-      margin-bottom: 35px;
-      position: relative;
-      max-height: 235px;
-  }
-      .auction-list-container {
-      background-color: aliceblue;
-      margin-bottom: 10px;
+        body {
+            background-color: #ffffff; /* Світло-сірий фон */
+            color: #555; /* Темний сірий колір для тексту */
+        }
 
-  }
-  .auction-photo {
-      margin: 10px;
-      padding: 5px;
-      width: 200px;
-      height: 200px;
-  }
-  .btn-details {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-  }</style>
-  <h1 style="text-align: center">Мої лоти</h1>
-  {% if auctions %}
-    <div class="container mt-5 auction-list-container">
-  {% for auction in auctions %}
-        <!-- Аукціон 1 -->
-        <div class="row auction-container">
-            <div class="col-md-3">
-                <img src="{% static auction.image %}" alt="Фото аукціону" class="img-thumbnail auction-photo">
-            </div>
-            <div class="col-md-9">
-                <h2>{{ auction.name}} - Дата початку: {{ auction.str_date }}</h2>
-                <h5>Стартова ціна: {{ auction.start_price }}
-                Мінімальна ставка: {{ auction.minimal_bet }}
-                Ціна викупу: {{ auction.price_of_ransom }}</h5>
-                <p>{{ auction.description }}</p>
-                <a href="{{ auction.id }}/" class="btn btn-primary btn-details">Детальніше</a>
-                <!-- Додайте інші елементи форми тут -->
-            </div>
-    </div>
-    {% endfor %}
+        .container {
+            margin-top: 20px;
+            border-radius: 10px; /* Закруглені кути рамки */
+            padding: 20px; /* Відступ всередині контейнера */
+            box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Тінь */
+            border: 1px solid #ccc; /* Рамка навколо контейнера */
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        h1 {
+            color: #343a40; /* Темно-сірий колір для заголовків */
+        }
+
+        p {
+            color: #777; /* Світло-сірий колір для тексту */
+        }
+    </style>
+
+
+  {% if lots %}
+
+  <div class="mb-2">
+  {% for lot in lots %}
+    <div class="container">
+    <div class="row">
+        <div class="col-md-2">
+            <img src="auction_image.jpg" alt="Зображення аукціону" class="img-fluid">
         </div>
-    {% else %}
-        <p>В тебе немає лотів</p>
+        <div class="col-md-10">
+            <h1>{{ lot.auction.name}}</h1>
+        </div>
+    </div>
+    <hr> <!-- Роздільна лінія -->
+    <div class="row">
+        <div class="col-md-12">
+            <p><strong>Дата початку:</strong> {{ lot.auction.str_date }}</p>
+            <p><strong>Стартова ціна:</strong> ${{ lot.auction.start_price}}</p>
+            <p><strong>Мінімальна ставка:</strong> ${{ lot.auction.minimal_bet}}</p>
+            <p><strong>Ціна викупу:</strong> ${{ lot.auction.price_of_ransom}}</p>
+            <p><strong>Поточна ставка:</strong> ${{ lot.auction.current_bet}}</p>
+            <p><strong>Час створення лоту:</strong> {{ lot.str_date }}</p>
+            <hr>
+        </div>
+    </div>
+        <div class="row">
+        <div>
+            <div class="d-flex justify-content-center align-items-center">
+                <a href="/auction/{{ auction.id }}/"><button class="btn btn-primary">Перейти до аукціону</button></a>
+            </div>
+        </div>
+    </div>
+</div>
+    {% endfor %}
+  {% else %}
+        <p>В тебе немає лотів!!!</p>
     {% endif %}
+</div>
 {% endblock %}
