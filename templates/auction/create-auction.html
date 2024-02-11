@@ -27,33 +27,33 @@
     {% csrf_token %}
       <div class="mb-3">
           <label for="auctionName" class="form-label">Назва аукціону</label>
-          <input type="text" class="form-control" id="auctionName" required>
+          <input type="text"  name="name" class="form-control" id="auctionName" required>
       </div>
       <div class="mb-3">
           <label for="description" class="form-label">Опис</label>
-          <textarea class="form-control" id="description" rows="3" required></textarea>
+          <textarea class="form-control" name="description" id="description" rows="3" required></textarea>
       </div>
       <div class="mb-3">
           <label for="image" class="form-label">Картинка</label>
-          <input type="file" class="form-control" id="image" required>
+          <input type="file" name="image" class="form-control" id="image" required>
       </div>
       <div class="row">
           <div class="col-md-6 mb-3">
               <label for="startPrice" class="form-label">Початкова ціна</label>
-              <input type="number" class="form-control" id="startPrice" required>
+              <input type="number"  name="start_price" class="form-control" id="startPrice" required>
           </div>
           <div class="col-md-6 mb-3">
               <label for="minBid" class="form-label">Мінімальна ставка</label>
-              <input type="number" class="form-control" id="minBid" required>
+              <input type="number" name="minimal_bet" class="form-control" id="minBid" required>
           </div>
       </div>
       <div class="mb-3">
           <label for="buyoutPrice" class="form-label">Ціна викупу</label>
-          <input type="number" class="form-control" id="buyoutPrice" required>
+          <input type="number" name="price_of_ransom" class="form-control" id="buyoutPrice" required>
       </div>
       <div class="mb-3">
           <label for="startTime" class="form-label">Час початку</label>
-          <input type="datetime-local" class="form-control" id="startTime" required>
+          <input type="datetime-local" name="date_start" class="form-control" id="startTime" required>
       </div>
       <button type="submit" class="btn btn-primary">Зареєструвати аукціон</button>
   </form>

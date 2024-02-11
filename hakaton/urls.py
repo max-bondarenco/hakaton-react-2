@@ -18,16 +18,17 @@ from django.contrib import admin
 from django.urls import path, include
 
 from auction.views import index
-from hakaton.views import sign_up, account, sign_in, validation_reg, success
+from hakaton.views import sign_up, account, sign_in, success
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index),
     path('auction/', include("auction.urls", namespace="auction"), name="auction"),
     path('account/', account, name="account"),
+    path('accounts/', include('django.contrib.auth.urls'), name="accounts"),
     path('sign-up/', sign_up, name="sign_up"),
     path('sign-in/', sign_in, name="sign_in"),
-    path('sign-up/verify/', validation_reg, name="sign_up_verify"),
+    path('sign-up/verify/', sign_up, name="sign_up_verify"),
     path('sign-up/verify/success', account, name="sign_up_verify")
 ]
 
