@@ -27,9 +27,6 @@
             <li class="mt-2">
                 <a href="/auction/my-lots" class="nav-link px-2 link-body-emphasis">Мої лоти</a>
             </li>
-{#            <li>#}
-{#                <a href="/account" class="nav-link px-2 link-body-emphasis">Особистий кабінет</a>#}
-{#            </li>#}
         </ul>
 
         <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
@@ -55,7 +52,7 @@
                 </a>
                 <ul class="dropdown-menu text-small" style="">
                     <li>
-                        <a class="dropdown-item" href="#">Створити аукціон</a>
+                        <a class="dropdown-item" href="/auction/create-auction">Створити аукціон</a>
                     </li>
                     <li><a class="dropdown-item" href="#">Налаштування</a></li>
                     <li>
@@ -66,7 +63,7 @@
                 </ul>
             </div>
         {% else %}
-            <a href="{% url "sign_in" %}"
+            <a href="{% url "account" %}"
                class="d-block link-body-emphasis text-decoration-none me-3"
             >
                 <img src="{% static "img/unregistered_user.png" %}"

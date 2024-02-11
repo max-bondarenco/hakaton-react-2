@@ -27,7 +27,6 @@ urlpatterns = [
     path('account/', account, name="account"),
     path('accounts/', include('django.contrib.auth.urls'), name="accounts"),
     path('sign-up/', sign_up, name="sign_up"),
-    path('sign-in/', sign_in, name="sign_in"),
     path('sign-up/verify/', sign_up, name="sign_up_verify"),
     path('sign-up/verify/success', account, name="sign_up_verify")
 ]
