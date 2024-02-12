@@ -198,6 +198,7 @@ def auction_refactor(request, pk: int):
         auction.price_of_ransom = price_of_ransom
         auction.date_start = date_start
         auction.save()
+        return auction_my(request)
     else:
         return render(
             request,
