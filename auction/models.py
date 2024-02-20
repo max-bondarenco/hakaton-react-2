@@ -99,3 +99,16 @@ class Lot(models.Model):
 
     def str_date(self):
         return datetime.datetime.strftime(self.time_of_lot, "%H:%M:%S")
+
+class Auction2(models.Model):
+    name = models.CharField(max_length=255, default="Auction")
+    description = models.TextField(blank=True, null=True, max_length=700)
+    start_price = models.DecimalField(max_digits=15, decimal_places=2)
+    minimal_bet = models.DecimalField(max_digits=15, decimal_places=2)
+    price_of_ransom = models.DecimalField(
+        max_digits=15,
+        decimal_places=2,
+        null=True
+    )
+    time_of_creation = models.DateTimeField(auto_now_add=True)
+    time_of_start = models.DateTimeField()
