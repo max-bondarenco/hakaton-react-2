@@ -4,8 +4,7 @@ from django.urls import path
 
 from auction.views import auction_list_detail, auction_my, auction_going, \
     lots_my, create_auction, create_auction_success, auction_list, \
-    auction_bet, auction_refactor, auction_buy
-
+    auction_bet, auction_refactor, auction_buy, api_list_auction
 
 urlpatterns = [
     path('', auction_list, name="auction"),
@@ -26,6 +25,7 @@ urlpatterns = [
         name='create_auction_success'
     ),
     path('my-lots/', lots_my),
+    path('react/', api_list_auction),
     ]
 
 

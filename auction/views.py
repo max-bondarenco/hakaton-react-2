@@ -5,7 +5,11 @@ from django.contrib.auth.decorators import login_required
 from django.db.transaction import atomic
 from django.shortcuts import render
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
-from auction.models import Auction, User, Lot, Transation
+from rest_framework import serializers
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
+from auction.models import Auction, User, Lot, Transation, Auction2
 
 from hakaton.views import account
 
@@ -234,3 +238,51 @@ def auction_buy(request, pk: int):
     auction.seconds_to_end = 0
     auction.save()
     return auction_ransom(request, pk)
+
+
+class AuctionSerializer(serializers.ModelSerializer):
+    # id = serializers.IntegerField(read_only=True)
+    # name = serializers.CharField(required=True)
+    # description = serializers.CharField(required=True, allow_blank=True, allow_null=True)
+    # minimal_bet = serializers.DecimalField(required=True, max_digits=15, decimal_places=2)
+    # price_of_ransom = serializers.DecimalField(required=True, allow_null=True, max_digits=15, decimal_places=2)
+    # time_of_creation = serializers.DateTimeField()
+    # time_of_start = serializers.DateTimeField()
+
+    class Meta:
+        model = Auction2
+        fields = "__all__"
+
+    def create(self, validated_data):
+        return Auction2.objects.create(**validated_data)
+
+    def update(self, instance, validated_data):
+        instance.name = validated_data.get("name", instance.name)
+        instance.description = validated_data.get(
+            "description",
+            instance.description
+        )
+        instance.minimal_bet = validated_data.get(
+            "minimal_bet",
+            instance.minimal_bet
+        )
+        instance.price_of_ransom = validated_data.get(
+            "price_of_ransom",
+            instance.price_of_ransom
+        )
+        instance.time_of_creation = validated_data.get(
+            "time_of_creation",
+            instance.time_of_creation
+        )
+        instance.time_of_start = validated_data.get(
+            "time_of_start",
+            instance.time_of_start
+        )
+        instance.save()
+        return instance
+
+@api_view(["Get", "POST"])
+def api_list_auction():
+    auction = Auction2.objects.first()
+    serializer = AuctionSerializer(auction, many=True)
+    return Response(serializer.data, status=200)

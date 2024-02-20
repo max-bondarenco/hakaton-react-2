@@ -1,3 +1,7 @@
 .venv
+<<<<<<< HEAD
 db.sqlite3
 node_modules
+=======
+db.sqlite3
+>>>>>>> 606d350d5fa7519b4d8d03cfb1e4aa2b3223b234
