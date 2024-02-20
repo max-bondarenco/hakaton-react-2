@@ -111,4 +111,4 @@ class Auction2(models.Model):
         null=True
     )
     time_of_creation = models.DateTimeField(auto_now_add=True)
-    time_of_start = models.DateTimeField()
+    time_of_start = models.DateTimeField(null=True)

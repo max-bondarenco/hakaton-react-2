@@ -282,7 +282,7 @@ class AuctionSerializer(serializers.ModelSerializer):
         return instance
 
 @api_view(["Get", "POST"])
-def api_list_auction():
+def api_list_auction(request,*args, **kwargs):
     auction = Auction2.objects.first()
     serializer = AuctionSerializer(auction, many=True)
     return Response(serializer.data, status=200)
