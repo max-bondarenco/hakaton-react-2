@@ -34,7 +34,8 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls'), name="accounts"),
     path('sign-up/', sign_up, name="sign_up"),
     path('sign-up/verify/', sign_up, name="sign_up_verify"),
-    path('sign-up/verify/success', account, name="sign_up_verify")
+    path('sign-up/verify/success', account, name="sign_up_verify"),
+    path('front/', include('frontend.urls', namespace='frontend'), name="frontend")
 ]
 
 urlpatterns += static(settings.MEDIA_URL,
